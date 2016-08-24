@@ -20,7 +20,11 @@ import android.R.integer;
 //import android.R;
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -37,6 +41,7 @@ public class ChooseAreaActivity extends Activity {
 	public static final int LEVEL_PROVNINCE = 0;
 	public static final int LEVEL_CITY = 1;
 	public static final int LEVEL_COUNTY = 2;
+	private boolean isFromWeatherActivity;
 	private ProgressDialog progressDialog;
 	private TextView titleText;
 	private ListView listView;
@@ -69,7 +74,19 @@ public class ChooseAreaActivity extends Activity {
 	*/
 	private int currentLevel;
 	protected void onCreate(Bundle savedInstanceState){
-		super.onCreate(savedInstanceState);
+		super.onCreate(savedInstanceState);				
+		isFromWeatherActivity = getIntent().getBooleanExtra("from_weather_activity", false);
+		
+		SharedPreferences prefs = PreferenceManager.
+				getDefaultSharedPreferences(this);
+		
+		Log.w("chooseon",""+isFromWeatherActivity+prefs.getBoolean("city_selected", false));
+				if (prefs.getBoolean("city_selected", false)&&isFromWeatherActivity) {
+				Intent intent = new Intent(this, WeatherActivity.class);
+				startActivity(intent);
+				finish();
+				return;
+				}
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.choose_area);
 		listView = (ListView) findViewById(R.id.list_view);
@@ -77,6 +94,7 @@ public class ChooseAreaActivity extends Activity {
 		adapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,datalist);
 		listView.setAdapter(adapter);
 		coolWeatherDB = CoolWeatherDB.getInstance(this);
+		//Log.w("choose thread",Thread.currentThread().getName());
 		listView.setOnItemClickListener(new OnItemClickListener() {
 			
 			public void onItemClick(AdapterView<?>arg0,View view,int index,long arg3){
@@ -86,9 +104,18 @@ public class ChooseAreaActivity extends Activity {
 					queryCities();
 				} else if (currentLevel == LEVEL_CITY) {
 				selectedCity = cityList.get(index);
-				Log.w("item", selectedCity.getCityCode());
 				queryCounties();
 				
+				}
+				else if (currentLevel == LEVEL_COUNTY) {
+					String countyCode = countyList.get(index).getCountryCodeString();
+					Intent intent = new Intent(ChooseAreaActivity.this,
+					WeatherActivity.class);
+					intent.putExtra("county_code", countyCode);
+					Log.w("open", "open weather");
+					startActivity(intent);
+					Log.w("open", "open weather1111111");
+					finish();
 				}
 			}
 		});
@@ -120,7 +147,7 @@ public class ChooseAreaActivity extends Activity {
 	for (city City : cityList) {
 	datalist.add(City.getCityName());
 	}
-	Log.w("datalist", datalist.toString());
+	
 	adapter.notifyDataSetChanged();
 	listView.setSelection(0);
 	titleText.setText(selectedProvince.getProvinceName());
@@ -136,7 +163,7 @@ public class ChooseAreaActivity extends Activity {
 		datalist.clear();
 		for (Country county : countyList) {
 		datalist.add(county.getCountryName());
-		Log.w("country", datalist.get(datalist.size()-1));
+		
 		}
 		adapter.notifyDataSetChanged();
 		listView.setSelection(0);
@@ -172,7 +199,7 @@ public class ChooseAreaActivity extends Activity {
 					result = Utility.handleCitiesResponse(coolWeatherDB,
 					response, selectedProvince.getId());
 					} else if ("county".equals(type)) {
-						Log.w("country", "select country");
+						
 					result = Utility.handleCountiesResponse(coolWeatherDB,
 					response, selectedCity.getId());
 					}
@@ -234,8 +261,12 @@ public class ChooseAreaActivity extends Activity {
 		queryCities();
 		} else if (currentLevel == LEVEL_CITY) {
 		queryProvinces();
-		} else {
-		finish();
+		}else {
+			if (isFromWeatherActivity) {
+				Intent intent = new Intent(this, WeatherActivity.class);
+				startActivity(intent);
+				}
+				finish();
 		}
 		}
 }

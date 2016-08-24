@@ -104,7 +104,7 @@ public class CoolWeatherDB {
 		List<Country> list = new ArrayList<Country>();
 		Cursor cursor = db.query("Country", null, "city_id = ?", new String[]{String.valueOf(cityId)}, null, null, null);
 		if (cursor.moveToFirst()) {
-			Log.w("in county", "incomin");
+		
 			do {
 				Country country = new Country();
 				country.setId(cursor.getInt(cursor.getColumnIndex("id")));
@@ -112,10 +112,10 @@ public class CoolWeatherDB {
 				country.setCountryCodeString(cursor.getString(cursor.getColumnIndex("county_code")));
 				country.setCity_id(cityId);
 				list.add(country);
-				Log.w("hahah", list.get(list.size()-1).toString());
+			
 			} while (cursor.moveToNext());
 		}
-		Log.w("return", list.toString());
+		
 		return list;
 		
 	}
