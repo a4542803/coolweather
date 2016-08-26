@@ -3,6 +3,7 @@ package com.coolweather.app.util;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
+import java.util.Set;
 
 import org.json.JSONObject;
 
@@ -10,6 +11,7 @@ import com.coolweather.app.db.CoolWeatherDB;
 import com.coolweather.app.model.Country;
 import com.coolweather.app.model.Province;
 import com.coolweather.app.model.city;
+import com.coolweather.app.model.weather;
 
 import android.R.bool;
 import android.content.Context;
@@ -86,23 +88,29 @@ public  static boolean handleCitiesResponse(CoolWeatherDB coolWeatherDB,String r
 			String response){
 		try {
 			JSONObject jsonObject = new JSONObject(response);
-			JSONObject weatherInfo = jsonObject.getJSONObject("weatherinfo");
-			String cityName = weatherInfo.getString("city");
+			JSONObject weatherInfo = jsonObject.getJSONObject("result");
+			String cityName = weatherInfo.getString("citynm");
 			String weatherCode = weatherInfo.getString("cityid");
-			String temp1 = weatherInfo.getString("temp1");
-			String temp2 = weatherInfo.getString("temp2");
+			String days = weatherInfo.getString("days");
+			String temperature = weatherInfo.getString("temperature");
+			String temperature_curr = weatherInfo.getString("temperature_curr");
 			String weatherDesp = weatherInfo.getString("weather");
 			//String publishTime = weatherInfo.getString("ptime");
-			saveWeatherInfo(context,cityName,weatherCode,temp1,temp2,weatherDesp);
+			String weather_icon = weatherInfo.getString("weather_icon");
+			String week = weatherInfo.getString("week");
+			String wind = weatherInfo.getString("wind");
+			
+			saveWeatherInfo(context,cityName,weatherCode,temperature,temperature_curr,weatherDesp,days,weather_icon,week,wind);
+			
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
 		}
 	}
 	public static void saveWeatherInfo(Context context, String cityName,
-			String weatherCode, String temp1, String temp2, String weatherDesp
-		){
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy年M月d日",Locale.CHINA);
+			String weatherCode, String temp1, String temp2, String weatherDesp,
+		String days,String weather_icon,String week,String wind){
+		//SimpleDateFormat sdf = new SimpleDateFormat("yyyy年M月d日",Locale.CHINA);
 		SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(context).edit();
 		editor.putBoolean("city_selected",true);
 		editor.putString("city_name",cityName);
@@ -111,8 +119,13 @@ public  static boolean handleCitiesResponse(CoolWeatherDB coolWeatherDB,String r
 		editor.putString("temp2", temp2);
 		editor.putString("weather_desp", weatherDesp);
 		//editor.putString("publish_time", publishTime);
-		editor.putString("current_date", sdf.format(new Date()));
+		editor.putString("current_date", days);
+		editor.putString("weather_icon", weather_icon);
+		editor.putString("week", week);
+		editor.putString("wind", wind);
 		editor.commit();
 		
+		
 	}
+	
 }

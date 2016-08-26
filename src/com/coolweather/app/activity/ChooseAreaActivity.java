@@ -186,7 +186,7 @@ public class ChooseAreaActivity extends Activity {
 			
 		}
 		showProgressDialog();
-		HttpUtil.sendHttpRequest(address, new HttpCallbackListener() {
+		HttpUtil.sendHttpRequest(address, false,new HttpCallbackListener() {
 			
 		//	@Override
 			public void onFinish(String response) {
