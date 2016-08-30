@@ -1,37 +1,15 @@
 package com.coolweather.app.activity;
 
-import java.nio.charset.CodingErrorAction;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Set;
-
-import com.coolweather.app.R;
-import com.coolweather.app.R.drawable;
-import com.coolweather.app.model.weather;
-import com.coolweather.app.service.AutoUpdateServece;
-import com.coolweather.app.util.HttpCallbackListener;
-import com.coolweather.app.util.HttpUtil;
-import com.coolweather.app.util.Utility;
-
-import coolweather.app.myAppPlication;
-
-import android.R.bool;
-import android.R.integer;
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
-import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
-import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.preference.PreferenceManager;
 import android.text.TextUtils;
-import android.text.style.RelativeSizeSpan;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
@@ -40,7 +18,15 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.TwoLineListItem;
+
+import com.coolweather.app.R;
+import com.coolweather.app.R.drawable;
+import com.coolweather.app.model.weather;
+import com.coolweather.app.service.AutoUpdateServece;
+import com.coolweather.app.util.HttpCallbackListener;
+import com.coolweather.app.util.HttpUtil;
+
+import coolweather.app.myAppPlication;
 
 public class WeatherActivity extends Activity implements OnClickListener {
 	
@@ -48,6 +34,7 @@ public class WeatherActivity extends Activity implements OnClickListener {
 		private LinearLayout icon1;
 		private RelativeLayout relativeLayout;
 		private boolean ReflashFlag;
+		private LinearLayout linearmainLayout;
 		/**
 		* 用于显示城市名
 		* */
@@ -98,6 +85,7 @@ public class WeatherActivity extends Activity implements OnClickListener {
 			requestWindowFeature(Window.FEATURE_NO_TITLE);
 			setContentView(R.layout.weather_layout);
 			Log.w("weather", "open weather ok");
+			linearmainLayout = (LinearLayout) findViewById(R.id.LinearMain);
 			weatherInfoLayout = (LinearLayout) findViewById(R.id.weather_info_layout);
 			relativeLayout = (RelativeLayout) findViewById(R.id.layout_button);
 			icon1 = (LinearLayout) findViewById(R.id.icon1);
@@ -501,7 +489,27 @@ public class WeatherActivity extends Activity implements OnClickListener {
 				//Log.w("set", w.getWeekString());
 			}*/
 		
+			/*Resources resources = getContext().getResources();   
+			Drawable btnDrawable = resources.getDrawable(R.drawable.layout_bg);  
+			layout.setBackgroundDrawable(btnDrawable);   */
 			
+
+			if (weainfo.getWeatherInfoString().equals("多云")) {
+				linearmainLayout.setBackgroundResource(drawable.clound);
+			}
+			else if (weainfo.getWeatherInfoString().equals("阵雨")) {
+				
+				linearmainLayout.setBackgroundResource(drawable.rain);
+			}
+			else if(weainfo.getWeatherInfoString().equals("阴")){
+				linearmainLayout.setBackgroundResource(drawable.nosun);
+			}
+			else if (weainfo.getWeatherInfoString().equals("晴")) {
+				linearmainLayout.setBackgroundResource(drawable.sun);
+			}
+			else if (weainfo.getWeatherInfoString().contains("雨")) {
+				linearmainLayout.setBackgroundResource(drawable.allrain);
+			}
 			
 			weekTextView.setText(weainfo.getWeekString());
 			cityNameText.setText(weainfo.getCityNameString());

@@ -2,7 +2,9 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
+    android:orientation="vertical" 
+    android:background="@drawable/nomal1"
+    android:id = "@+id/LinearMain">
     
 	  <RelativeLayout
         android:layout_width="match_parent"
@@ -38,8 +40,10 @@
 	android:layout_width="match_parent"
 	android:layout_height="0dp"
 	android:layout_weight="1"
-	android:background="#27A5F9"
+	
 	 >
+	<!-- android:background="#27A5F9" -->
+	
     
 	  <LinearLayout
 	      android:id="@+id/icon1"
@@ -159,7 +163,7 @@
 	android:layout_height="0dp"
 	android:orientation="vertical"
 	android:layout_weight="1"  
-	android:background="#27A5F9">
+	>
 	<RelativeLayout
 	 android:id="@+id/layout_button"
 	 android:layout_width="wrap_content"
