@@ -84,7 +84,7 @@ public  static boolean handleCitiesResponse(CoolWeatherDB coolWeatherDB,String r
 	}
 	return false;
 }
-	public   static void handleWeatherResponse(Context context,
+	/*public   static void handleWeatherResponse(Context context,
 			String response){
 		try {
 			JSONObject jsonObject = new JSONObject(response);
@@ -106,7 +106,7 @@ public  static boolean handleCitiesResponse(CoolWeatherDB coolWeatherDB,String r
 			// TODO: handle exception
 			e.printStackTrace();
 		}
-	}
+	}*/
 	public static void saveWeatherInfo(Context context, String cityName,
 			String weatherCode, String temp1, String temp2, String weatherDesp,
 		String days,String weather_icon,String week,String wind){

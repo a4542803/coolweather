@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android" >
+  
+    <!--  <item android:state_selected="true" android:color="#0FF" />  
+   获得焦点时的颜色  
+    <item android:state_focused="true" android:color="#F0F" />  
+   点击时的颜色  
+    <item android:state_pressed="true" android:color="#FF0" />  
+   默认的颜色  
+    <item android:color="#000" />   -->
+    
+   
+    <!--  <item android:state_enabled="false" android:drawable="@drawable/clr_normal"/>  -->
+     <item android:state_pressed="true" android:drawable="@drawable/clr_pressed"/> 
+		<item android:state_selected="true" android:drawable="@drawable/clr_pressed"/> 
+		<item  android:drawable="@drawable/clr_normal"/> 
+     
+       
+    
+    
+
+</selector>

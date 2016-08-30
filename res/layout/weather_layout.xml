@@ -82,14 +82,14 @@
 	android:textColor="#FFF"
 	android:textSize="30sp"
 	android:text="未知" />
-	 <TextView
+	<!--  <TextView
 	android:id="@+id/temp1"
 	android:layout_width="wrap_content"
 	android:layout_height="wrap_content"
 	android:layout_gravity="center_vertical"
 	android:textColor="#FFF"
 	android:textSize="30sp"
-	android:text="未知" />
+	android:text="未知" /> -->
 	<TextView
 	android:id="@+id/weather_desp"
 	android:layout_width="wrap_content"
@@ -154,27 +154,96 @@
 	
 	</RelativeLayout>
 	<RelativeLayout
+	   
+	android:layout_width="match_parent"
+	android:layout_height="0dp"
+	android:orientation="vertical"
+	android:layout_weight="1"  
+	android:background="#27A5F9">
+	<RelativeLayout
+	 android:id="@+id/layout_button"
+	 android:layout_width="wrap_content"
+	android:layout_height="wrap_content"
+	android:orientation="vertical">
+	<Button
+	android:id="@+id/buttonone"
+	android:layout_width="100dp"
+	android:layout_height="70dp"
+	android:layout_alignParentLeft="true"
+	android:layout_alignParentTop="true"
+	android:layout_marginRight="10dp"
+	 android:background="@drawable/buttonselcolor" />
+	<Button
+	android:id="@+id/buttontwo"
+	android:layout_width="100dp"
+	android:layout_height="70dp"
+	android:layout_centerHorizontal="true"
+	 android:background="@drawable/buttonselcolor"/>
+	<Button
+	android:id="@+id/buttonthree"
+	android:layout_width="100dp"
+	android:layout_height="70dp"
+	android:layout_alignParentRight="true"
+   android:layout_alignParentTop="true"
+   android:background="@drawable/buttonselcolor"/>
+	<Button
+	android:id="@+id/buttonfour"
+	android:layout_width="100dp"
+	android:layout_height="70dp"
+	android:layout_below="@id/buttonone"
+	 android:layout_marginTop="10dp"
+	 android:background="@drawable/buttonselcolor"
+	/>
+	<Button
+	android:id="@+id/buttonfri"
+	android:layout_width="100dp"
+	android:layout_height="70dp"
+	android:layout_below="@id/buttontwo"
+	android:layout_centerHorizontal="true"
+	 android:layout_marginTop="10dp"
+	 android:background="@drawable/buttonselcolor"/>
+	<Button
+	android:id="@+id/buttonsat"
+	android:layout_width="100dp"
+	android:layout_height="70dp"
+	android:layout_below="@id/buttonthree"
+	android:layout_alignParentRight="true"
+	 android:layout_marginTop="10dp"
+	 android:background="@drawable/buttonselcolor"/>
+	
+	<Button
+	android:id="@+id/buttonwnd"
+	android:layout_width="100dp"
+	android:layout_height="70dp"
+	android:layout_below="@id/buttonfour"
+	 android:layout_marginTop="10dp"
+	 android:background="@drawable/buttonselcolor"
+	/>
+	 </RelativeLayout>
+  
+	</RelativeLayout>
+	<!--  <RelativeLayout
 	android:layout_width="match_parent"
 	android:layout_height="0dp"
 	android:orientation="horizontal"
-	android:layout_weight="1" 
+	 android:layout_weight="1" 
 	android:background="#27A5F9">
 	<Button
-	android:id="@+id/button"
+	android:id="@+id/buttonfour"
 	android:layout_width="100dp"
 	android:layout_height="70dp"
 	android:layout_alignParentLeft="true"
 	android:layout_alignParentTop="true"/>
 	<Button
-	android:id="@+id/button"
+	android:id="@+id/buttonfri"
 	android:layout_width="100dp"
 	android:layout_height="70dp"
 	android:layout_centerHorizontal="true"/>
 	<Button
-	android:id="@+id/button"
+	android:id="@+id/buttonsat"
 	android:layout_width="100dp"
 	android:layout_height="70dp"
 	android:layout_alignParentRight="true"
    android:layout_alignParentTop="true"/>
-	</RelativeLayout>
+	</RelativeLayout> -->
 </LinearLayout>

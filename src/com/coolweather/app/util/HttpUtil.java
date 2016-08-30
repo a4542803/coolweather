@@ -56,6 +56,8 @@ public class HttpUtil {
 	//InputStream is = new ByteArrayInputStream(xmlData.getBytes());
 	
 	xmlPullParser.setInput(is,"utf-8");
+	
+	//String[] s = {"item_0","item_1","item_2","item_3","item_4","item_5","item_6"};
 	/*BufferedReader reader = new BufferedReader(new InputStreamReader(is));
 	StringBuffer response = new StringBuffer();
 	String line;
@@ -72,6 +74,18 @@ public class HttpUtil {
 	/*String name = "";
 	String version = "";*/
 	String weekString = "";
+	String cityName = "";
+	String curTemp = "";
+	String allTemp = "";
+	String wind = "";
+	String date = "";
+	String weainfo = "";
+	String weather_icon = "";
+	String days = "";
+	String weathercode = "";
+	/*if (!weathers.isEmpty()) {
+		weathers.clear();
+	}*/
 	while (eventType != XmlPullParser.END_DOCUMENT) {
 	String nodeName = xmlPullParser.getName();
 	
@@ -83,7 +97,7 @@ public class HttpUtil {
 		
 		break;
 	case XmlPullParser.START_TAG: {
-		
+			
 		/*for (int i = 0; i < s.length; i++)*/ {
 			if ("item_0".equals(nodeName)||"item_1".equals(nodeName)
 					||"item_2".equals(nodeName)||"item_3".equals(nodeName)
@@ -97,11 +111,53 @@ public class HttpUtil {
 			else if ("week".equals(nodeName)) {
 				weekString = xmlPullParser.nextText();
 				Weatherinfo.setWeekString(weekString);
-				//++id;
-
-				Log.w("week ",id+"");
 				
 			}
+			else if ("citynm".equals(nodeName)) {
+				cityName = xmlPullParser.nextText();
+				Weatherinfo.setCityNameString(cityName);
+				
+			}
+			else if ("temperature_curr".equals(nodeName)) {
+				curTemp = xmlPullParser.nextText();
+				Weatherinfo.setCurTempString(curTemp);
+				//++id;
+				
+			}
+			else if ("temperature".equals(nodeName)) {
+				allTemp = xmlPullParser.nextText();
+				Weatherinfo.setAllTempString(allTemp);
+				//++id;
+
+			}
+			else if ("weather".equals(nodeName)) {
+				weainfo = xmlPullParser.nextText();
+				Weatherinfo.setWeatherInfoString(weainfo);
+				//++id;
+			}
+			else if ("wind".equals(nodeName)) {
+				wind = xmlPullParser.nextText();
+				Weatherinfo.setWind(wind);
+				//++id;
+
+			}
+			else if ("weather_icon".equals(nodeName)) {
+				weather_icon = xmlPullParser.nextText();
+				Weatherinfo.setWeaicon(weather_icon);
+				//++id;
+
+			}
+			else if ("days".equals(nodeName)) {
+				days = xmlPullParser.nextText();
+				Weatherinfo.setDate(days);
+				//++id;
+			}
+			else if ("cityid".equals(nodeName)) {
+				weathercode = xmlPullParser.nextText();
+				Weatherinfo.setWeatherCodeString(weathercode);
+				//++id;
+			}
+			
 		}
 	break;
 	}
@@ -114,7 +170,13 @@ public class HttpUtil {
 		{
 	  weathers.add(Weatherinfo);
 	  myAppPlication.setwaether(weathers);
+	 // for(weather w:myAppPlication.getSet().toString())
+		{	
+			id++;
+			//Log.w("myAppPlication",myAppPlication.getSet().toString());
+		}
 	  Weatherinfo = null;
+	 
 		}
 	break;
 	}
@@ -135,7 +197,7 @@ public class HttpUtil {
 			@Override
 			public void run() {
 				// TODO Auto-generated method stub
-				Log.w("run", "run ok");
+				//Log.w("run", "run ok");
 				HttpURLConnection connection = null;
 				try {
 						/*URL url = new URL(address);
@@ -163,7 +225,7 @@ public class HttpUtil {
 						String response = EntityUtils.toString(entity,"utf-8");
 						if (listener != null) {
 							//parseXMLWithPull(response);
-							Log.w("run response",response.toString());
+							//Log.w("run response",response.toString());
 							listener.onFinish(response.toString());
 						}
 					}
@@ -173,7 +235,7 @@ public class HttpUtil {
 							if (listener != null) {
 							
 							listener.onFinish(response.toString());
-							Log.w("run response",response.toString());
+							//Log.w("run response",response.toString());
 						}
 					}
 					
@@ -205,7 +267,7 @@ public  static void sendHttpRequest(final String address,final HttpCallbackListe
 			@Override
 			public void run() {
 				// TODO Auto-generated method stub
-				Log.w("run", "run ok");
+				//Log.w("run", "run ok");
 				HttpURLConnection connection = null;
 				try {
 						URL url = new URL(address);
@@ -214,8 +276,9 @@ public  static void sendHttpRequest(final String address,final HttpCallbackListe
 						connection.setConnectTimeout(8000);
 						connection.setReadTimeout(8000);
 						InputStream inputStream = connection.getInputStream();
+						//InputStream inputStream1 =	inputStream ;
 						parseXMLWithPull(inputStream);
-					
+						
 						if (listener != null) {
 							//parseXMLWithPull(response);
 						

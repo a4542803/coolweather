@@ -2,10 +2,14 @@ package com.coolweather.app.service;
 
 import javax.security.auth.PrivateCredentialPermission;
 
+import com.coolweather.app.activity.WeatherActivity;
+import com.coolweather.app.model.weather;
 import com.coolweather.app.receiver.AutoUpdateReceiver;
 import com.coolweather.app.util.HttpCallbackListener;
 import com.coolweather.app.util.HttpUtil;
 import com.coolweather.app.util.Utility;
+
+import coolweather.app.myAppPlication;
 
 import android.R.integer;
 import android.app.AlarmManager;
@@ -48,13 +52,18 @@ public class AutoUpdateServece extends Service{
 		
 		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
 		String weatherCode = prefs.getString("weather_code","");
-		String address = "http://www.weather.com.cn/data/cityinfo/" + weatherCode +".html";
-		HttpUtil.sendHttpRequest(address, true,new HttpCallbackListener() {
+		Object[] arry = 	myAppPlication.getSet().toArray();
+		weather weathers = (weather) arry[0];
+		String address = "http://www.weather.com.cn/data/cityinfo/" + weathers.getWeatherCodeString() +".html";
+		HttpUtil.sendHttpRequest(address,new HttpCallbackListener() {
 			
 			@Override
 			public void onFinish(String response) {
 				// TODO Auto-generated method stub
-				Utility.handleWeatherResponse(AutoUpdateServece.this, response);
+				//Utility.handleWeatherResponse(AutoUpdateServece.this, response);
+			new WeatherActivity().showWeather(0);
+				
+				
 			}
 			
 			@Override

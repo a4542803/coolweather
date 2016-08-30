@@ -9,10 +9,32 @@ public class weather {
 	public int id;
 	private String curTempString;
 	private String allTempString;
+	
 	private String weatherInfoString;
 	private String weekString;
 	private String wind;
+	private String weatherCodeString;
+	public String getWeatherCodeString() {
+		return weatherCodeString;
+	}
+	public void setWeatherCodeString(String weatherCodeString) {
+		this.weatherCodeString = weatherCodeString;
+	}
+	public String getWeaicon() {
+		return weaicon;
+	}
+	public void setWeaicon(String weaicon) {
+		this.weaicon = weaicon;
+	}
+	private String weaicon;
+	public String getCityNameString() {
+		return cityNameString;
+	}
+	public void setCityNameString(String cityNameString) {
+		this.cityNameString = cityNameString;
+	}
 	private String date;
+	private String cityNameString;
 	public String getCurTempString() {
 		return curTempString;
 	}
